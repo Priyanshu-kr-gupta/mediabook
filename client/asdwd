@@ -1,0 +1,163 @@
+[33mcommit dac495cd7addb36d87993b9d3faa1dd162bdf2bb[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: som02esh <someshgupta9234@gmail.com>
+Date:   Mon Feb 12 11:05:01 2024 +0530
+
+    dsjd
+
+[33mcommit a597530fd24c7dfe060a3eea106bb5389bbbc483[m
+Author: som02esh <someshgupta9234@gmail.com>
+Date:   Wed Feb 7 09:17:44 2024 +0530
+
+    post change
+
+[33mcommit f8db26e05a884b472224decb295099d540fc712b[m
+Author: som02esh <someshgupta9234@gmail.com>
+Date:   Tue Feb 6 22:02:53 2024 +0530
+
+    profile
+
+[33mcommit 84033d7caa48545921d8fe73983fe870bbb2cff1[m
+Author: som02esh <someshgupta9234@gmail.com>
+Date:   Tue Feb 6 22:01:30 2024 +0530
+
+    post
+
+[33mcommit 8ae67d01e72f296cf014676a23cd2f938722322f[m
+Author: som02esh <someshgupta9234@gmail.com>
+Date:   Tue Feb 6 21:50:14 2024 +0530
+
+    update
+
+[33mcommit 46d04e652b36aae431bdd279d190327e52594d18[m
+Author: som02esh <someshgupta9234@gmail.com>
+Date:   Tue Feb 6 16:05:53 2024 +0530
+
+    mobile
+
+[33mcommit eec487dc2bc41020456a8f5b1bd29d597c4f2be5[m
+Author: som02esh <someshgupta9234@gmail.com>
+Date:   Tue Feb 6 16:01:26 2024 +0530
+
+    mobil
+
+[33mcommit 960c7722f9f7ba7fe5f00f1cdb933a11805af003[m
+Author: som02esh <someshgupta9234@gmail.com>
+Date:   Tue Feb 6 15:56:40 2024 +0530
+
+    mobile
+
+[33mcommit cb9159f472558c667ea5337e3def41549b2f1cd1[m
+Author: som02esh <someshgupta9234@gmail.com>
+Date:   Thu Jan 25 21:40:55 2024 +0530
+
+    vercel server
+
+[33mcommit 5789e2e4ae65bd72f283fb07f83f48e0b4cbe85d[m
+Author: som02esh <someshgupta9234@gmail.com>
+Date:   Wed Jan 17 10:12:43 2024 +0530
+
+    like
+
+[33mcommit 921d1beee7936a30315c0237734ca1037a2e47da[m
+Author: som02esh <someshgupta9234@gmail.com>
+Date:   Tue Jan 16 18:14:19 2024 +0530
+
+    post
+
+[33mcommit 60d93df9aefa05323da382e6716e998a41af8c6a[m
+Author: som02esh <someshgupta9234@gmail.com>
+Date:   Tue Jan 9 15:20:35 2024 +0530
+
+    main
+
+[33mcommit 11aa8bc6e2d1be4bb97f46d69b7957ee29fa3201[m
+Author: AlexWeb07 <kaushikkumardas1@gmail.com>
+Date:   Sun Dec 3 21:32:47 2023 +0530
+
+    showing name on the navbar
+
+[33mcommit 05cf508c87c8819f5ca94d02296a69cb73b750ac[m
+Merge: 392c9b2 1d68879
+Author: AlexWeb07 <kaushikkumardas1@gmail.com>
+Date:   Sun Dec 3 20:47:00 2023 +0530
+
+    Merge branch 'main' of https://github.com/AlexWeb07/iNotebook-client
+
+[33mcommit 392c9b231e4b90a8558587b6bd6069692be62b35[m
+Author: AlexWeb07 <kaushikkumardas1@gmail.com>
+Date:   Sun Dec 3 20:42:47 2023 +0530
+
+    showing user name on the navbar
+
+[33mcommit 1d68879d714f9a418bc183f9dcdbcfe5c23f4929[m
+Author: AlexWeb07 <93365089+AlexWeb07@users.noreply.github.com>
+Date:   Sun Dec 3 19:54:12 2023 +0530
+
+    Update README.md
+
+[33mcommit 7c71586a37552fe5469715a48909b333b4fe2013[m
+Author: AlexWeb07 <93365089+AlexWeb07@users.noreply.github.com>
+Date:   Sun Dec 3 19:50:50 2023 +0530
+
+    Update README.md
+
+[33mcommit 835aca51a7c1acf1db8a07e7619fefbfc05d29e2[m
+Author: AlexWeb07 <93365089+AlexWeb07@users.noreply.github.com>
+Date:   Sun Dec 3 19:50:19 2023 +0530
+
+    Update README.md
+
+[33mcommit c6574c953d8fd92ca3d2703a18c46000e3b06c8e[m
+Author: AlexWeb07 <kaushikkumardas1@gmail.com>
+Date:   Sun Dec 3 19:16:06 2023 +0530
+
+    added loadder
+
+[33mcommit 5343098018c4f53743f13f4401d9c194bae2ff2a[m
+Author: AlexWeb07 <kaushikkumardas1@gmail.com>
+Date:   Sun Dec 3 18:25:29 2023 +0530
+
+    removing a file
+
+[33mcommit 2251625d58d60cd3c825f1f822f9f777c6e0a31e[m
+Merge: 6590c8d be8bf45
+Author: AlexWeb07 <kaushikkumardas1@gmail.com>
+Date:   Sun Dec 3 18:12:43 2023 +0530
+
+    Merge branch 'main' of https://github.com/AlexWeb07/iNotebook-client
+
+[33mcommit 6590c8d514d04f99f13b1dc42dbe73d44a36485f[m
+Author: AlexWeb07 <kaushikkumardas1@gmail.com>
+Date:   Sun Dec 3 18:06:12 2023 +0530
+
+    removing about section from navbar
+
+[33mcommit be8bf451203d1f7133749ddac7d49e4fe73f7b73[m
+Author: AlexWeb07 <93365089+AlexWeb07@users.noreply.github.com>
+Date:   Sun Dec 3 18:00:57 2023 +0530
+
+    Update SignUp.js
+
+[33mcommit 795040c0432417ee8e735fffa8a54084a8c8e1eb[m
+Author: AlexWeb07 <93365089+AlexWeb07@users.noreply.github.com>
+Date:   Sun Dec 3 18:00:35 2023 +0530
+
+    Update Login.js
+
+[33mcommit f7785a53ae9f5d2ae7364f8cdf71cbfec1134850[m
+Author: AlexWeb07 <93365089+AlexWeb07@users.noreply.github.com>
+Date:   Sun Dec 3 17:57:16 2023 +0530
+
+    Update NoteState.js
+
+[33mcommit f573d7d1bfd6addb745fecbf2241a1259a87ae78[m
+Author: AlexWeb07 <kaushikkumardas1@gmail.com>
+Date:   Sun Dec 3 17:25:34 2023 +0530
+
+    commit
+
+[33mcommit 69faa81e043ef3e01a0ad39624573a051b464cf9[m
+Author: AlexWeb07 <kaushikkumardas1@gmail.com>
+Date:   Sun Dec 3 16:56:52 2023 +0530
+
+    first commit

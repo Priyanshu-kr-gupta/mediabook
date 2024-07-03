@@ -1,0 +1,27 @@
+html{
+    font-size: 16px;
+}
+.noteItem{
+    width: 24.5%;
+}
+.notes{
+    justify-content: flex-start;
+}
+@media screen and (max-width:992px) {
+    .noteItem{
+        width: 32.5%;
+    }
+}
+@media screen and (max-width:768px) {
+    .noteItem{
+        width: 48.5%;
+    }
+}
+@media screen and (max-width:450px) {
+    .noteItem{
+        width: 90%;
+    }
+    .notes{
+        justify-content: center;
+    }
+}

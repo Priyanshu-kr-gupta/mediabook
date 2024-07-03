@@ -1,0 +1,90 @@
+.profile{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    /* background-color:   #DDE1E7; */
+    /* overflow-y: scroll; */
+}
+.backgroundImage{
+    /* margin-top: 10px; */
+    width: 90%;
+    height:45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:  5px 5px 10px #8f8f8f,
+    -5px -5px 10px #ffffff;
+}
+.backgroundImage>img{
+    width: 95%;
+    height: 90%;
+    object-fit: cover;
+}
+.profileContainer{
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -5rem;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    /* box-shadow:  5px -5px 10px #dcdcdc,
+             -5px -5px 10px #ffffff; */ 
+    /* backdrop-filter: blur(5px); */
+}
+.topData{
+    width: 90%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    /* background-color: red; */
+}
+.profileImg{
+    width: clamp(140px,25%,180px);
+    /* height: 150px; */
+    aspect-ratio: 1/1;
+    background-size: cover;
+    border-radius: 50%;
+    border: 5px solid rgb(255, 255, 255);
+   overflow: hidden;
+    margin-top: -8rem;
+    flex-shrink: 0;
+}
+.profileImg > img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color:white;
+ 
+}
+
+
+#con::after{
+    content:attr(con-count);
+    background-color: red;
+    border-radius: 50%;
+    padding: 2px;
+    position: absolute;
+    font-size: 10px;
+}
+
+@media (max-width:620px)
+{
+    .backgroundImage{
+        width: 99%;
+        height: 35%;
+    }
+    .backgroundImage>img{
+        width: 100%;
+    }
+    .profileContainer{
+        width: 95%;
+    }
+}

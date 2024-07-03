@@ -1,0 +1,9 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.notes{
+    width: 100%;
+    /* background: #000; */
+    scroll-snap-type: y mandatory;
+}
