@@ -5,8 +5,17 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
+    margin-top: -20px;
     /* background-color:   #DDE1E7; */
-    /* overflow-y: scroll; */
+    overflow-y: scroll;
+    
+}
+.profile::-webkit-scrollbar{
+    width: 4px;
+    /* background: red; */
+}
+.profile::-webkit-scrollbar-thumb{
+    background: #343A40;
 }
 .backgroundImage{
     /* margin-top: 10px; */
@@ -86,5 +95,11 @@
     }
     .profileContainer{
         width: 95%;
+    }
+    .profile{
+     
+        margin-top: -32px;
+    
+        
     }
 }

@@ -14,8 +14,8 @@ function GlobalNoteitem(props) {
       const [like, setLike] = useState(false);
       const userId=localStorage.getItem("uid")
 
-      // const host = process.env.REACT_APP_HOST;
-      const host="http://localhost:5000"
+      const host = process.env.REACT_APP_HOST;
+      // const host="http://localhost:5000"
 
       const handleLikes = async () => {
           try {

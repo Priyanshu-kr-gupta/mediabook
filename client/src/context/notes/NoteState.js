@@ -3,8 +3,8 @@ import NoteContext from "./NoteContext";
 
 const NoteState = (props) => {
   // const host="https://inotebook-server-m9df.onrender.com" 
-  // const host=process.env.REACT_APP_HOST
-  const host="http://localhost:5000"
+  const host=process.env.REACT_APP_HOST
+  // const host="http://localhost:5000"
   const [notes, setNotes] = useState([]);
   const [data,setData] = useState(false)
   const [globalNote,setglobalNote]=useState([])

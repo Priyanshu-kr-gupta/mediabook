@@ -4,6 +4,14 @@
 }
 .notes{
     width: 100%;
-    /* background: #000; */
+    height: 90vh;
+    overflow-y: scroll;
     scroll-snap-type: y mandatory;
+}
+.notes::-webkit-scrollbar{
+    width: 4px;
+    /* background: red; */
+}
+.notes::-webkit-scrollbar-thumb{
+    background: #343A40;
 }

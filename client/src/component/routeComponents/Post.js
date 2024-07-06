@@ -21,8 +21,8 @@ const Post = () => {
   const [like, setLike] = useState(false);
   const [time, setTime] = useState("");
   const [commentUser, setCommentUser] = useState({})
-  // const host = process.env.REACT_APP_HOST;
-  const host="http://localhost:5000"
+  const host = process.env.REACT_APP_HOST;
+  // const host="http://localhost:5000"
   const addComment = (e) => {
     e.preventDefault();
     fetch(host + "/api/notes/add_comment", {
@@ -70,7 +70,7 @@ const Post = () => {
   // const response= await res.json()
   const json=await res.json()
   const data=json.user
-  console.log(commentUser)
+  // console.log(commentUser)
   // setCommentUser(data)
     // console.log(json.user)
 }
@@ -288,7 +288,7 @@ const Post = () => {
       </div>  
     </div>
 
-        <div className="comment-container" style={{position:"relative"}}>
+        <div className="comment-container">
           <div className="comment-post-header">
             <div className="comment-p">
               <p>Comments</p>
@@ -312,9 +312,9 @@ const Post = () => {
               ))}
             </div>
           </div>
-          <form onSubmit={addComment} style={{position:"sticky",bottom:"0px",width:"100%"}}>
+          <form onSubmit={addComment}>
           <div className="add-section">
-            <input 
+            <textarea 
             required
             minLength="3"
             type="text"
@@ -322,7 +322,7 @@ const Post = () => {
              id="" 
              placeholder="Add a comment..."
              onChange={(e) => setComment(e.target.value)}
-             style={{ height: "35px", width: "80%",border:"1px solid rgba(0, 0, 0, 0.1)",padding:"2%" }}
+             style={{ height: "35px", width: "80%",border:"1px solid rgba(0, 0, 0, 0.1)",padding:"2%",height:"100%",resize:"none",outline:"none" }}
              />
             <br />
             <button type="submit">➡️</button>

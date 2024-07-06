@@ -53,7 +53,7 @@ const HandleImage = (e) => {
 }
 
   return (
-    <div className="container">
+    <div className="container" style={{marginBottom:"20px"}}>
       {/* <AddNote></AddNote> */}
       <button type="button" ref={ref} className="btn d-none btn-primary" data-toggle="modal" data-target="#exampleModal">
         Launch demo modal
@@ -119,7 +119,7 @@ const HandleImage = (e) => {
       : 
       <>
       
-      <div className="d-flex flex-wrap notes">
+      <div className="d-flex flex-wrap">
         <center style={notes.length===0?{display:"contents"}:{display:"none"}}><p>No Post to display!!</p></center>
         {notes.map((note) => {
           return (

@@ -11,8 +11,8 @@ const Signup = () => {
     const [profileImg,setProfileImg] = useState("");
     const [bgImg,setBgImg] = useState("");
 
-    // const host=process.env.REACT_APP_HOST
-    const host="http://localhost:5000"
+    const host=process.env.REACT_APP_HOST
+    // const host="http://localhost:5000"
 
     const handleChangeEmail= (e) =>{
     setEmail(e.target.value)

@@ -39,7 +39,7 @@ function Navbar() {
             </Link>
           </li>
         </ul>
-      {localStorage.getItem("user") && <h4 className="text-light mr-2 mt-2">Welcome {user.split(" ")[0]}!!</h4>}
+      {/* {localStorage.getItem("user") && <h4 className="text-light mr-2 mt-2">Welcome {user.split(" ")[0]}!!</h4>} */}
           
         <form className="d-flex">
           {!localStorage.getItem("auth-token") && <><Link className="btn btn-secondary mx-1" to="/login" role="button">

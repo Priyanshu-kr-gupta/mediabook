@@ -6,7 +6,9 @@ function Profile() {
 const navigate = useNavigate()
 
 const [user,setUser]=useState({});
-const host="http://localhost:5000"
+// const host="http://localhost:5000"
+const host=process.env.REACT_APP_HOST
+
 const handleClick=()=>{
   localStorage.removeItem("auth-token")
   localStorage.removeItem("user")
