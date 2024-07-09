@@ -22,7 +22,6 @@ const Post = () => {
   const [time, setTime] = useState("");
   const [commentUser, setCommentUser] = useState({})
   const host = process.env.REACT_APP_HOST;
-  // const host="http://localhost:5000"
   const addComment = (e) => {
     e.preventDefault();
     fetch(host + "/api/notes/add_comment", {
