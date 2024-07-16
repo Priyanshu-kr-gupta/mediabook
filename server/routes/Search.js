@@ -2,7 +2,7 @@ const express=require('express');
 const router=express.Router();
 const User= require('../models/User');
 const Connections = require("../models/connection")
-const fetchuser = require("../middleware/fetchuser");
+const fetchuser = require("../middleware/fetchUser");
 const connections = require('../models/connection');
 router.post('/searchUser',async (req,res)=>{
   
