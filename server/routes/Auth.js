@@ -11,7 +11,9 @@ const {body,validationResult}=require('express-validator');
 // const fetchUser=require('../middleware/fetchUser')
 const nodemailer = require('nodemailer');
 
-
+router.post('/', fetchUser,async (req,res)=>{
+   console.log("i am called")
+})
 
 //Route 0 for email verification
 router.post('/sendOtp',async (req,res)=>{
