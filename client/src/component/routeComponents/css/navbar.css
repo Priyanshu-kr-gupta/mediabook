@@ -1,0 +1,211 @@
+/* Base Navbar Styles */
+.navbar {
+    width: 100%;
+    position: relative;
+    /* top: 0; */
+    /* left: 0; */
+    z-index: 100;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-scrolled {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    height: 64px;
+  }
+  
+  /* Logo styling - extreme left */
+  .logo {
+    font-size: 22px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    display: flex;
+    padding-left: 24px; 
+    width: 50%;
+  }
+  
+  .logo-text {
+    color: #333;
+  }
+  
+  .logo-accent {
+    color: #3b82f6;
+  }
+  
+  /* Navigation links - extreme right */
+  .nav-links {
+    display: flex;
+    justify-content: flex-end;
+    width: 50%;
+    gap: 30px;
+    padding-right: 24px;
+  }
+  
+  .nav-link {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 0;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #3b82f6;
+    transition: width 0.3s ease;
+  }
+  
+  .nav-link.active::after,
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .nav-link.active {
+    color: #3b82f6;
+    font-weight: 600;
+  }
+  
+  .nav-link:hover {
+    color: #3b82f6;
+  }
+  
+  /* Auth buttons */
+  .auth-buttons {
+    display: flex;
+    gap: 12px;
+    padding-right: 24px; /* Add padding right when auth buttons are present */
+  }
+  
+  .btn {
+    padding: 7px 15px;
+    border-radius: 6px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 14px;
+  }
+  
+  .btn-login {
+    background-color: transparent;
+    color: #3b82f6;
+    border: 1px solid #3b82f6;
+  }
+  
+  .btn-login:hover {
+    background-color: rgba(59, 130, 246, 0.05);
+  }
+  
+  .btn-signup {
+    background-color: #3b82f6;
+    color: white;
+  }
+  
+  .btn-signup:hover {
+    background-color: #2563eb;
+  }
+  
+  /* Mobile display */
+  .mobile-brand {
+    display: none;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 90;
+  }
+  
+  /* Mobile Bottom Navbar */
+  .navbar-mobile {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 100;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .mobile-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 22px;
+    transition: all 0.2s ease;
+  }
+  
+  .mobile-icon.active {
+    color: #3b82f6;
+  }
+  
+  .mobile-label {
+    font-size: 11px;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  
+  /* Responsive styles */
+  @media screen and (max-width: 768px) {
+    .navbar {
+      display: none; /* Hide top navbar on mobile */
+    }
+  
+    .mobile-brand {
+      display: block;
+      text-align: left;
+      position: relative;
+      padding-left: 16px;
+    }
+  
+    body {
+      padding-bottom: 60px; /* Space for mobile navbar */
+      padding-top: 44px; /* Space for top brand */
+    }
+  
+    .navbar-mobile {
+      display: flex;
+    }
+  }
+  
+  /* Tablet specific */
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
+    .logo {
+      padding-left: 16px;
+    }
+    
+    .nav-links, .auth-buttons {
+      padding-right: 16px;
+    }
+    
+    .nav-links {
+      gap: 20px;
+    }
+  }

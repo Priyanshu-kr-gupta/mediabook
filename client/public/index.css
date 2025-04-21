@@ -27,6 +27,7 @@
     .profile-container{
         z-index: 1;
         width: 70%;
+        
         height: 65vh;
         background-color: yellow;
         display: flex;

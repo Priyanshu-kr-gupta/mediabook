@@ -1,138 +1,259 @@
+import "../component/routeComponents/css/notes.css";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import NoteContext from "../context/notes/NoteContext";
-import NoteItem from "./NoteItem";
 import { useNavigate } from "react-router-dom";
 
-
-
-function Notes(props) {
-  const navigate = useNavigate()
+function Notes() {
+  const navigate = useNavigate();
   const context = useContext(NoteContext);
-  const { data, notes, getAllNotes,updateNote,getUser} = context;
+  const { data, notes, getAllNotes, updateNote, deleteNote, getUser } = context;
+
+  const [unote, setunote] = useState({
+    id: "",
+    utitle: "",
+    udescription: "",
+    utag: "",
+    upostImg: ""
+  });
+
+  const [selectedNote, setSelectedNote] = useState(null);
+
+  const updateRef = useRef(null);
+  const optionsRef = useRef(null);
+
   useEffect(() => {
-      if(localStorage.getItem("auth-token")){
-        getUser();
-        getAllNotes();
-      }
-      else{
-        navigate("/login")
-      }
+    if (localStorage.getItem("auth-token")) {
+      getUser();
+      getAllNotes();
+    } else {
+      navigate("/login");
+    }
     // eslint-disable-next-line
   }, []);
 
-  const [unote,setunote] = useState({id:"",utitle:"",udescription:"",utag:"",upostImg:""})
-  const toggleUpdateNote=(note)=>{
-    ref.current.click()
-    setunote({...unote,id:note._id,utitle:note.title,udescription:note.description,utag:note.tag})
-    document.getElementById("utitle").value=note.title
-    document.getElementById("udescription").value=note.description
-    document.getElementById("utag").value=note.tag
-  }
-  const ref = useRef(null)
-  const handleChange=(e)=>{
-    setunote({...unote,[e.target.name] : [e.target.value] })
-  }
-  const handleClick=(e)=>{
-    e.preventDefault();
-    updateNote(unote)
-    console.log(unote)
+  const openUpdateModal = (note) => {
+    updateRef.current.click();
+    setunote({
+      id: note._id,
+      utitle: note.title,
+      udescription: note.description,
+      utag: note.tag,
+      upostImg: note.postImg
+    });
+  };
 
-    ref.current.click()
-  }
+  const openOptionsModal = (note) => {
+    setSelectedNote(note);
+    optionsRef.current.click();
+  };
+
+  const handleChange = (e) => {
+    setunote({ ...unote, [e.target.name]: e.target.value });
+  };
+
+  const handleUpdateClick = (e) => {
+    e.preventDefault();
+    updateNote(unote);
+    updateRef.current.click();
+  };
+
+  const handleDeleteClick = () => {
+    if (selectedNote) {
+      deleteNote(selectedNote._id);
+      optionsRef.current.click();
+    }
+  };
+
   const convertToBase64 = (file) => {
-    const fileReader =new FileReader();
+    const fileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onload = () => {
-      setunote({...unote, upostImg: `${fileReader.result}`})
+      setunote({ ...unote, upostImg: fileReader.result });
     };
-}
-const HandleImage = (e) => {
+  };
+
+  const HandleImage = (e) => {
     const file = e.target.files[0];
-    // console.log( e.target.files[0])
-    convertToBase64(file);
-}
+    if (file) convertToBase64(file);
+  };
 
   return (
-    <div className="container" style={{marginBottom:"20px"}}>
-      {/* <AddNote></AddNote> */}
-      <button type="button" ref={ref} className="btn d-none btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Launch demo modal
+    <div className="container py-4">
+      {/* Hidden modal triggers */}
+      <button
+        type="button"
+        ref={updateRef}
+        className="btn d-none"
+        data-toggle="modal"
+        data-target="#updateModal"
+      >
+        Launch Update Modal
       </button>
-      <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
+      
+      <button
+        type="button"
+        ref={optionsRef}
+        className="btn d-none"
+        data-toggle="modal"
+        data-target="#optionsModal"
+      >
+        Launch Options Modal
+      </button>
+
+      {/* Update Modal */}
+      <div
+        className="modal fade"
+        id="updateModal"
+        tabIndex="-1"
+        aria-labelledby="updateModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="exampleModalLabel">
-                Update Post
-              </h5>
-              <button type="button" className="close" data-dismiss="modal" aria-label="Close"
+              <h5 className="modal-title">Update Post</h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
               >
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div className="modal-body">
-              <form >
-                <div className="form-group">
-                  <label htmlFor="utitle">Title</label>
-                  <input name="utitle" type="text" className="form-control" id="utitle" onChange={handleChange}/>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="udescription">Description</label>
-                  <input name="udescription" type="text" className="form-control" id="udescription" onChange={handleChange}/>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="ntag">Tag</label>
-                  <input name="utag" type="text" className="form-control" id="utag" onChange={handleChange}/>
-                </div>
-                <div className="form-group">
-                  {/* <label htmlFor="">Tag</label> */}
-                  <input name="upostImg" type="file" className="form-control" id="upostImg" onChange={(e) => {HandleImage(e)}}/>
-                </div>
+              <form>
+                <input
+                  name="utitle"
+                  type="text"
+                  placeholder="Title"
+                  className="form-control my-2"
+                  value={unote.utitle}
+                  onChange={handleChange}
+                />
+                <input
+                  name="udescription"
+                  type="text"
+                  placeholder="Description"
+                  className="form-control my-2"
+                  value={unote.udescription}
+                  onChange={handleChange}
+                />
+                <input
+                  name="utag"
+                  type="text"
+                  placeholder="Tag"
+                  className="form-control my-2"
+                  value={unote.utag}
+                  onChange={handleChange}
+                />
+                <input
+                  name="upostImg"
+                  type="file"
+                  className="form-control my-2"
+                  onChange={HandleImage}
+                />
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-dismiss="modal"
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-dismiss="modal"
               >
                 Close
               </button>
-              <form>
-                <button type="submit" className="btn btn-warning" onClick={handleClick}>
-                  Update Post
-                </button>
-              </form>
+              <button
+                type="submit"
+                className="btn btn-warning"
+                onClick={handleUpdateClick}
+              >
+                Update Post
+              </button>
             </div>
           </div>
         </div>
       </div>
 
+      {/* Options Modal */}
+      <div
+        className="modal fade"
+        id="optionsModal"
+        tabIndex="-1"
+        aria-labelledby="optionsModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered modal-sm">
+          <div className="modal-content">
+            <div className="modal-body p-0">
+              <div className="options-list">
+                <button
+                  className="option-item"
+                  onClick={() => {
+                    optionsRef.current.click();
+                    if (selectedNote) openUpdateModal(selectedNote);
+                  }}
+                >
+                  Edit
+                </button>
+                <button
+                  className="option-item text-danger"
+                  onClick={handleDeleteClick}
+                >
+                  Delete
+                </button>
+                <button
+                  className="option-item border-top"
+                  data-dismiss="modal"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <h2>Your Posts</h2>
-      <hr/>
-    <br/>
-    <br/>
-      {!data? 
-       <center>
-       <div className="spinner-grow text-dark" role="status" style={{width: "3rem", height: "3rem"}}>
-        <span className="sr-only">Loading...</span>
-      </div>
-       </center>
-      : 
-      <>
-      
-      <div className="d-flex flex-wrap">
-        <center style={notes.length===0?{display:"contents"}:{display:"none"}}><p>No Post to display!!</p></center>
-        {notes.map((note) => {
-          return (
-            <NoteItem
-              key={note._id}
-              note={note}
-              toggleUpdateNote={toggleUpdateNote}
-            ></NoteItem>
-          );
-        })}
-      </div>
-      </>
-      }
+      {/* Posts Grid */}
+      <h2 className="profile-title mb-2">Your Posts</h2>
+      <hr />
+      {!data ? (
+        <div className="text-center">
+          <div
+            className="spinner-border text-dark"
+            role="status"
+            style={{ width: "3rem", height: "3rem" }}
+          >
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      ) : (
+        <div className="instagram-grid mb-5">
+          {notes.length === 0 ? (
+            <p className="text-center">No Posts to display!</p>
+          ) : (
+            notes.map((note) => (
+              <div 
+                className="instagram-grid-item" 
+                key={note._id}
+                onClick={() => openOptionsModal(note)}
+              >
+                <div className="grid-image">
+                  <img
+                    src={note.postImg || "https://via.placeholder.com/300"}
+                    alt={note.title}
+                  />
+                </div>
+                {note.tag && (
+                  <div className="grid-tag">
+                    #{note.tag}
+                  </div>
+                )}
+              </div>
+            ))
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,0 +1,79 @@
+/* Instagram Grid Layout CSS with Fixed Columns */
+.profile-title {
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #262626;
+  }
+  
+  /* Fixed 3-column grid regardless of screen size */
+  .instagram-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -2px;
+  }
+  
+  .instagram-grid-item {
+    width: 33.333%;
+    padding: 0 2px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    position: relative;
+    border: 2px solid rgba(201, 195, 195, 0.214);
+  }
+  
+  .grid-image {
+    position: relative;
+    padding-bottom: 100%; /* Create a perfect square */
+    overflow: hidden;
+  }
+  
+  .grid-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .grid-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+  
+  /* Options Modal Styling */
+  .options-list {
+    width: 100%;
+  }
+  
+  .option-item {
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #dbdbdb;
+    font-size: 14px;
+  }
+  
+  .option-item:last-child {
+    border-bottom: none;
+  }
+  
+  .option-item:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .text-danger {
+    color: #ed4956;
+  }
+  
+  .border-top {
+    border-top: 1px solid #dbdbdb;
+  }

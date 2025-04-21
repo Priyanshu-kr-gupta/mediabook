@@ -46,7 +46,7 @@ function Login(props) {
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input name="password" type="password" value={password} className="form-control" id="password" minLength={8} onChange={handleChange}/>
+            <input name="password" type="password" value={password} className="form-control" id="password" onChange={handleChange}/>
           </div>
           <button type="submit" className="btn btn-warning">
           Log In

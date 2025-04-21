@@ -1,57 +1,75 @@
-import React from "react";
-const { Link, useLocation ,useNavigate} = require("react-router-dom");
+import "./routeComponents/css/navbar.css";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { FiHome, FiUser, FiPlusCircle } from "react-icons/fi";
 
 function Navbar() {
-  const location =useLocation();
-  const navigate=useNavigate()
-  // console.log(location)
- 
-  const user=localStorage.getItem("user")
-  return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4 " style={{position:"sticky",top:"0",zIndex:"100"}}>
-      <Link className="navbar-brand " to="/">
-        <strong>Mediabook</strong>
-      </Link>
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav mr-auto">
-          <li className={"nav-item "+location.pathname==='/'?"active":""}>
-            <Link className="nav-link" to="/">
-              Home <span className="sr-only">(current)</span>
-            </Link>
-          </li>
-          <li className={"nav-item "+location.pathname==='/profile'?"active":""}>
-            <Link className="nav-link" to="/addPost">
-              Add_post <span className="sr-only">(current)</span>
-            </Link>
-          </li>
-          {/* <li className={"nav-item "+location.pathname==='/connect'?"active":""}>
-            <Link className="nav-link" to="/connect">
-              Connect <span className="sr-only">(current)</span>
-            </Link>
-          </li> */}
+  const location = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+  
+  // Handle scrolling effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-          <li className={"nav-item "+location.pathname==='/myprofile'?"active":""}>
-            <Link className="nav-link" to="profile">
-              MyProfile
-            </Link>
-          </li>
-        </ul>
-      {/* {localStorage.getItem("user") && <h4 className="text-light mr-2 mt-2">Welcome {user.split(" ")[0]}!!</h4>} */}
+  return (
+    <>
+      {/* Desktop Navigation */}
+      <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
+        <div className="navbar-container">
+          <Link to="/" className="logo">
+            <span className="logo-text">MediaBook</span>
+          </Link>
           
-        <form className="d-flex">
-          {!localStorage.getItem("auth-token") && <><Link className="btn btn-secondary mx-1" to="/login" role="button">
-              Login
+          <div className="nav-links">
+            <Link to="/" className={location.pathname === "/" ? "nav-link active" : "nav-link"}>
+              Home
             </Link>
-            <Link className="btn btn-secondary mx-1" to="/signup" role="button">
-              Signup
-            </Link></> }
-         
-          </form>
+            <Link to="/addPost" className={location.pathname === "/addPost" ? "nav-link active" : "nav-link"}>
+              Add Post
+            </Link>
+            <Link to="/profile" className={location.pathname === "/profile" ? "nav-link active" : "nav-link"}>
+              My Profile
+            </Link>
+          </div>
+          
+          <div className="auth-buttons">
+            {!localStorage.getItem("auth-token") && (
+              <>
+                <Link className="btn btn-login" to="/login">Login</Link>
+                <Link className="btn btn-signup" to="/signup">Sign Up</Link>
+              </>
+            )}
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Bottom Nav - Only show brand name at top on mobile */}
+      <div className="mobile-brand">
+        <span className="logo-text">MediaBook</span>
       </div>
-    </nav>
+      
+      {/* Mobile Bottom Nav */}
+      <div className="navbar-mobile">
+        <Link to="/" className={location.pathname === "/" ? "mobile-icon active" : "mobile-icon"}>
+          <FiHome />
+          <span className="mobile-label">Home</span>
+        </Link>
+        <Link to="/addPost" className={location.pathname === "/addPost" ? "mobile-icon active" : "mobile-icon"}>
+          <FiPlusCircle />
+          <span className="mobile-label">Add</span>
+        </Link>
+        <Link to="/profile" className={location.pathname === "/profile" ? "mobile-icon active" : "mobile-icon"}>
+          <FiUser />
+          <span className="mobile-label">Profile</span>
+        </Link>
+      </div>
+    </>
   );
 }
 

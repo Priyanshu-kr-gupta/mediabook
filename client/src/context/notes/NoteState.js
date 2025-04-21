@@ -53,19 +53,18 @@ const NoteState = (props) => {
 
 
   // adding a new note
-  const addNote= async (title,description,tag,postImg,alert)=>{
+  const addNote= async (formData)=>{
       setData(false)
      const res = await fetch(host+"/api/notes/createNote",{
       method:'POST',
       headers:{
-        "Content-Type": "application/json",
         "auth-token": localStorage.getItem("auth-token")
       },
-      body:JSON.stringify({title,description,tag,postImg})
+      body: formData
     })
-    if(res) props.showAlert("One note added succesfully","success")
+    if(res) props.showAlert("Post added successfully","success")
     getAllNotes();
-  }
+}
 
   // delete a note
   const deleteNote=async (id)=>{

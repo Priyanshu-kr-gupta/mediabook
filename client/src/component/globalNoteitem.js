@@ -90,6 +90,7 @@ function GlobalNoteitem(props) {
       
       // const host="http://localhost:5000"
       const getUserDetails=async()=>{
+        // console.log(note.userId)
         const res = await fetch(host+"/api/notes/getPostUser",{
           method:'POST',
           headers:{
@@ -98,10 +99,10 @@ function GlobalNoteitem(props) {
           body:JSON.stringify({id:note.userId})
       })
       // const response= await res.json()
+      // console.log(response)
       const json=await res.json()
       const data=json.user
         setPostUser({name:data.name,profilePhoto:data.profilePhoto})
-        // console.log(json.user)
     }
 
     // const commentSection=async()=>{

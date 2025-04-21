@@ -1,60 +1,224 @@
-import React, { useContext } from "react";
+import "./routeComponents/css/addnote.css";
+import React, { useContext, useState, useEffect } from "react";
 import NoteContext from "../context/notes/NoteContext";
-import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
-function AddNote(props) {
+function AddNote() {
+  const navigate = useNavigate();
   const context = useContext(NoteContext);
-  const {addNote} = context;
-    const [note, setNote] = useState({title: "",description: "",tag: "",postImg:""});
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      // console.log(note.postImg)
-      addNote(String(note.title), String(note.description), String(note.tag),String(note.postImg));
-      setNote({title:"",description: "",tag: "",postImg:""})
-    };
-    const handleChange = (e) => {
-      setNote({ ...note, [e.target.name]: [e.target.value] });
+  const { addNote } = context;
+  const [note, setNote] = useState({ title: "", description: "", tag: "", postImg: null });
+  const [loading, setLoading] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [dragActive, setDragActive] = useState(false);
 
+  useEffect(() => {
+    if (!localStorage.getItem("auth-token")) {
+      navigate("/login");
+    }
+    
+    // Cleanup preview URL when component unmounts
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
     };
-    const convertToBase64 = (file) => {
-      const fileReader =new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        setNote({...note, postImg: `${fileReader.result}`})
-      };
-}
-  const HandleImage = (e) => {
-      const file = e.target.files[0];
-      // console.log( e.target.files[0])
-      convertToBase64(file);
-  }
+  }, [navigate]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData();
+    formData.append("title", note.title);
+    formData.append("description", note.description);
+    formData.append("tag", note.tag);
+    formData.append("postImg", note.postImg);
+
+    try {
+      await addNote(formData);
+      setNote({ title: "", description: "", tag: "", postImg: null });
+      setPreviewUrl(null);
+    } catch (error) {
+      console.error("Error adding note:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleChange = (e) => {
+    setNote({ ...note, [e.target.name]: e.target.value });
+  };
+
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setNote({ ...note, postImg: file });
+      
+      // Create preview
+      const url = URL.createObjectURL(file);
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+      setPreviewUrl(url);
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const file = e.dataTransfer.files[0];
+      setNote({ ...note, postImg: file });
+      
+      // Create preview
+      const url = URL.createObjectURL(file);
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+      setPreviewUrl(url);
+    }
+  };
+
   return (
-    <div id="mb-5" className="container">
-      <h2>Add New Post</h2>
-      <form onSubmit={handleSubmit} method="post" encType="multipart/form-data">
+    <div className="add-note-container">
+      {/* <h2 className="add-note-title">Create New Post</h2> */}
+      
+      <form 
+        onSubmit={handleSubmit} 
+        method="post" 
+        encType="multipart/form-data"
+        className="add-note-form"
+      >
         <div className="form-group">
-          <label htmlFor="title">Title</label>
-          <input name="title" type="text" className="form-control" id="title" value={note.title} onChange={handleChange} required/>
+          <label htmlFor="title" className="form-label">
+            Title
+          </label>
+          <input
+            name="title"
+            type="text"
+            className="form-input"
+            id="title"
+            placeholder="Enter post title"
+            value={note.title}
+            onChange={handleChange}
+            required
+          />
         </div>
+        
         <div className="form-group">
-          <label htmlFor="description">Description</label>
-          <input name="description" type="text" className="form-control" id="description" value={note.description} onChange={handleChange} required/>
+          <label htmlFor="description" className="form-label">
+            Description
+          </label>
+          <textarea
+            name="description"
+            className="form-input form-textarea"
+            id="description"
+            placeholder="Write your post content here..."
+            value={note.description}
+            onChange={handleChange}
+            rows="4"
+            required
+          />
         </div>
+        
         <div className="form-group">
-          <label htmlFor="tag">Tag</label>
-          <input name="tag" type="text" className="form-control" id="tag" value={note.tag} onChange={handleChange}/>
+          <label htmlFor="tag" className="form-label">
+            Tags
+          </label>
+          <input
+            name="tag"
+            type="text"
+            className="form-input"
+            id="tag"
+            placeholder="Add tags separated by commas"
+            value={note.tag}
+            onChange={handleChange}
+          />
         </div>
+        
         <div className="form-group">
-          {/* <label htmlFor="tag"></label> */}
-          {/* <input type="file" name="postImg" id="postImg" accept='.jpeg,.png,.jpg' onChange={(e) => {HandleImage(e)}} required /> */}
-          <input name="postImg" type="file" className="form-control" id="postImg"  onChange={(e) => {HandleImage(e)}} required/>
+          <label className="form-label">
+            Upload Image
+          </label>
+          <div 
+            className={`file-upload-area ${dragActive ? 'drag-active' : ''}`}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+            onClick={() => document.getElementById("postImg").click()}
+          >
+            <input
+              name="postImg"
+              type="file"
+              className="hidden-input"
+              id="postImg"
+              accept="image/*"
+              onChange={handleImage}
+              required
+            />
+            
+            {previewUrl ? (
+              <div className="image-preview-container">
+                <img 
+                  src={previewUrl} 
+                  alt="Preview" 
+                  className="image-preview"
+                />
+                <button 
+                  type="button"
+                  className="remove-image-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setPreviewUrl(null);
+                    setNote({...note, postImg: null});
+                  }}
+                >
+                  ✕
+                </button>
+              </div>
+            ) : (
+              <div className="upload-placeholder">
+                <svg className="upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <p className="upload-text">Click or drag and drop to upload an image</p>
+              </div>
+            )}
+          </div>
         </div>
-        <button type="submit" className="btn btn-warning">
-        POST
-        </button>
+        
+        <div className="form-actions">
+          <button
+            type="submit"
+            className={`submit-button ${loading ? 'loading' : ''}`}
+            disabled={loading}
+          >
+            {loading ? (
+              <div className="loading-indicator">
+                <span className="loading-spinner"></span>
+                Posting...
+              </div>
+            ) : "Publish Post"}
+          </button>
+        </div>
       </form>
-      </div>
-  )
+    </div>
+  );
 }
 
-export default AddNote
+export default AddNote;

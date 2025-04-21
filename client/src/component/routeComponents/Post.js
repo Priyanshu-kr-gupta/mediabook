@@ -29,7 +29,7 @@ const Post = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ postId, userId, uname, comment,postImg:postUser.profilePhoto }),
+      body: JSON.stringify({ postId, userId, uname, comment}),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -41,7 +41,7 @@ const Post = () => {
               post_id: postId,
               uname,
               comment,
-              profilePhoto:postUser.profilePhoto
+              profilePhoto:data.profilePhoto,
             })
           );
         }
