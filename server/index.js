@@ -26,16 +26,12 @@ app.use(fileUpload({
 // });
 
 
+
 app.use('/api/auth',require("./routes/Auth"))
 app.use('/api/notes',require("./routes/Notes"))
 app.use('/api/user',require('./routes/Search'))
 
-app.get('/',(req,res)=>{
-  res.send("<h1>Hello World</h1>")
-})
-app.get('/api',(req,res)=>{
-  res.send("<h1>Hello API</h1>")
-})
+
 
 // running port
 app.listen(port,()=>{
