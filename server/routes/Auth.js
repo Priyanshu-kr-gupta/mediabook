@@ -5,10 +5,10 @@ const tempUser= require('../models/tempUser');
 const bcrypt= require('bcryptjs');
 const jwt=require('jsonwebtoken');
 const JWT_SECRET = "helloKaushikBeinLimit";
-
 const fetchUser = require("../middleware/fetchUser");
 const {body,validationResult}=require('express-validator');
 // const fetchUser=require('../middleware/fetchUser')
+const {uploadOnCloudinary}=require('../utils/cloudinary')
 const nodemailer = require('nodemailer');
 
 router.post('/', fetchUser,async (req,res)=>{
@@ -35,8 +35,15 @@ var transporter = nodemailer.createTransport({
   var mailOptions = {
     from: 'princegupta92349@gmail.com',
     to: `${email}`,
-    subject: 'Sending Email using Node.js',
-    text: `Your one time password (OTP) is ${otp}`
+    subject: 'Welcome to MediaBook',
+    html: `
+        <div style="font-family: Arial, sans-serif; text-align: center; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;">
+            <h2 style="color: #333;">Thankyou for showing intrest on Mediabook</h2>
+            <p style="font-size: 16px; color: #555;">Your one time password (OTP) is:</p>
+            <p style="font-size: 24px; font-weight: bold; color: #333;">${otp}</p>
+            <p style="font-size: 14px; color: #777;">Please use this OTP to complete your verification process.🙂</p>
+        </div>
+    `
     
   };
   otp=toString(otp);
@@ -90,38 +97,62 @@ router.post('/verifyOtp',async (req,res)=>{
 
 
 //Route1:create a user using :POST "/api/auth/createUser" no login required
-router.post('/createUser',async (req,res)=>{
-    let signup=false
-  
-    let user=await User.findOne({email:req.body.email})
-    if(user){
-        return res.status(400).json({msg:"Email already exists"})
+router.post('/createUser', async (req, res) => {
+    let signup = false;
+    const { email, name, password } = req.body;
+    let profilePhoto = '';
+    let bgPhoto = '';
+
+    let user = await User.findOne({ email });
+    if (user) {
+        return res.status(400).json({ msg: "Email already exists" });
     }
+
+    // console.log("hhi"+req.files.profileImg+req.files.bgImg);
+    // Upload profile image if provided
+    if (req.files && req.files.profileImg) {
+        const profileImg = req.files.profileImg;
+        const uploadResponse = await uploadOnCloudinary(profileImg.tempFilePath);
+        profilePhoto = uploadResponse;
+    }
+
+    // Upload background image if provided
+    if (req.files && req.files.bgImg) {
+        const bgImg = req.files.bgImg;
+        const uploadResponse = await uploadOnCloudinary(bgImg.tempFilePath);
+        bgPhoto = uploadResponse;
+    }
+
     // Password hashing
-    const salt=await bcrypt.genSalt(10);
-    const secPass=await bcrypt.hash(req.body.password,salt)
-    
+    const salt = await bcrypt.genSalt(10);
+    const secPass = await bcrypt.hash(password, salt);
+
+    console.log("hello"+profilePhoto+bgPhoto);
+
     // User Creation
-    user=await new User({
-        name:req.body.name,
-        email:req.body.email,
-        password:secPass,
-        profilePhoto:req.body.profileImg,
-        bgPhoto:req.body.bgImg,
-    }) 
-    const data={
-        user:{
-            id:user.id
+    user = await new User({
+        name,
+        email,
+        password: secPass,
+        profilePhoto,
+        bgPhoto,
+    });
+
+    const data = {
+        user: {
+            id: user.id
         }
-    }
-    user.save().then(()=>{
-        const authToken =jwt.sign(data,JWT_SECRET);
-        signup=true
-        console.log(authToken)
-        // return res.status(200).json({msg:"User Created Successfully",password:secPass})
-        res.json({authToken,signup,msg:"User Created Successfully"})
-    })
-})
+    };
+
+    user.save().then(() => {
+        const authToken = jwt.sign(data, JWT_SECRET);
+        signup = true;
+        res.json({ authToken, signup, msg: "User Created Successfully" });
+    }).catch((error) => {
+        console.error(error.message);
+        res.status(500).send({ msg: "Internal server error occurred" });
+    });
+});
 
 //Route2: Authenticate a user using :POST "/api/auth/login", no login required
 router.post('/loginUser',async (req,res)=>{

@@ -5,22 +5,33 @@
   const Likes=require("../models/Likes")
   const User=require("../models/User");
   const Comments=require("../models/Comment")
-const { set } = require("mongoose");
+// const { set } = require("mongoose");
+const {uploadOnCloudinary}=require('../utils/cloudinary')
+
   // ROUTE 1: Creating a note using:POST on '/api/notes/createNote' ; Require authentication
 
   router.post("/createNote", fetchUSer, async (req, res) => {
     try {
+     let postPhoto=''
       let userId = req.user.id;
       // let uname=req.user.uname;
       // const userbro = await User.find({_id: userId });
       let userbro = await User.findOne({ _id: userId });
     const uname=userbro.name
-      const { title, description, tag ,postImg} = req.body;
+      const { title, description, tag} = req.body;
+
+      const postImg = req.files.postImg;
+      if (req.files && req.files.postImg) {
+        const postImg = req.files.postImg;
+        const uploadResponse = await uploadOnCloudinary(postImg.tempFilePath);
+        postPhoto = uploadResponse;
+    }
       // console.log(postImg)
-      const note = new Notes({ title, description, tag,userId,postImg,uname });
+      const note = new Notes({ title, description, tag,userId,postImg:postPhoto,uname });
       await note.save();
       res.send({ msg: "New note added", note });
     } catch (error) {
+      console.log(error)
       res.status(500).send({ error });
     }
   });
@@ -111,8 +122,9 @@ const { set } = require("mongoose");
   router.post('/getPostUser',async (req,res)=>{
     try {
          const userId=req.body.id;
+        console.log(userId)
         const user= await User.findById(userId).select("-password")
-        // console.log(user)
+        console.log(user)
         // console.log(user)
         res.send({user})
     } catch (error) {
@@ -174,11 +186,14 @@ router.post('/getLikeStatus', async (req, res) => {
 });
 
 router.post('/add_comment', async (req, res) => {
-  const { postId, userId ,uname,comment,postImg} = req.body;
+  const { postId, userId ,uname,comment} = req.body;
+console.log(userId)
+  const user= await User.findById(userId).select("-password")
+  console.log("hfghfghf"+user)
 
   try {
-      await Comments.create({ user_id: userId, post_id: postId,uname,comment,profilePhoto:postImg});
-      res.json({ success: true, message: 'Comment added successfully' });
+      await Comments.create({ user_id: userId, post_id: postId,uname,comment,profilePhoto:user.profilePhoto });
+      res.json({ success: true, message: 'Comment added successfully',profilePhoto:user.profilePhoto });
   } catch (err) {
       console.error('Error handling comments', err);
       res.status(500).send({ success: false, error: 'Internal Server Error' });
