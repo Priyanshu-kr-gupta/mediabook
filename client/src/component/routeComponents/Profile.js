@@ -59,7 +59,7 @@ function Profile() {
                 <div className='profileImg'><img src={user.profilePhoto} alt='not found' /></div>
               </div>
               <div>
-                <br /><br /><br />
+                <br />
               </div>
               <div className='container' style={{ marginBottom: "10vh" }}>
                 <Notes />
