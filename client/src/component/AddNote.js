@@ -2,6 +2,7 @@ import "./routeComponents/css/addnote.css";
 import React, { useContext, useState, useEffect } from "react";
 import NoteContext from "../context/notes/NoteContext";
 import { useNavigate } from 'react-router-dom';
+import imageCompression from 'browser-image-compression';
 
 function AddNote() {
   const navigate = useNavigate();
@@ -33,7 +34,22 @@ function AddNote() {
     formData.append("title", note.title);
     formData.append("description", note.description);
     formData.append("tag", note.tag);
-    formData.append("postImg", note.postImg);
+    // formData.append("postImg", note.postImg);
+    if (note.postImg) {
+      const postImgFile = note.postImg;
+      try {
+          const compressedFile = await imageCompression(postImgFile, {
+          maxSizeMB: 4, 
+          maxWidthOrHeight: 1024, 
+          useWebWorker: true, 
+        });
+
+        formData.append('postImg', compressedFile);
+      } catch (error) {
+        console.error('Image compression failed:', error);
+      }
+    }
+
 
     try {
       await addNote(formData);

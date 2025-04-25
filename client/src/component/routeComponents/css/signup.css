@@ -1,0 +1,49 @@
+.signup-container {
+    max-width: 500px;
+    margin: auto;
+    padding: 2rem;
+}
+
+.signup-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.signup-form,
+.otp-email-section,
+.otp-verification-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.button {
+    padding: 0.6rem 1rem;
+    background-color: #f0ad4e;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.button:disabled {
+    background-color: #d9a441;
+    cursor: not-allowed;
+}

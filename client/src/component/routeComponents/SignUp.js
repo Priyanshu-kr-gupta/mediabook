@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import "../routeComponents/css/signup.css";
+
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -82,29 +85,26 @@ const Signup = () => {
     };
 
     const handleBgImage = (e) => {
-        // console.log(e.target.files[0]);
         setBgImg(e.target.files[0]);
     };
     const handleImage = (e) => {
-        // console.log(e.target.files[0]);
         setProfileImg(e.target.files[0]);
     };
 
     return (
-        <div className='container'>
-            <h2>Sign Up to Mediabook</h2>
-            <br />
-            <br />
+        <div className='signup-container'>
+            <h2 className="signup-title">Sign Up to Mediabook</h2>
+            <br /><br />
 
             {checkOtpSent && checkOtpVerified ? (
-                <form>
+                <form className="signup-form">
                     <div className='form-group'>
                         <label htmlFor="name">Set user Name</label>
                         <input
                             name="name"
                             type="text"
-                            className="form-control"
                             id="name"
+                            className="input"
                             value={name}
                             onChange={handleChangeName}
                             required
@@ -115,8 +115,8 @@ const Signup = () => {
                         <input
                             name="password"
                             type="password"
-                            className="form-control"
                             id="password"
+                            className="input"
                             value={password}
                             onChange={handleChangePassword}
                             required
@@ -127,7 +127,7 @@ const Signup = () => {
                         <input
                             type="file"
                             id="profilePhoto"
-                            className="form-control"
+                            className="input"
                             onChange={handleImage}
                         />
                     </div>
@@ -136,13 +136,13 @@ const Signup = () => {
                         <input
                             type="file"
                             id="bgPhoto"
-                            className="form-control"
+                            className="input"
                             onChange={handleBgImage}
                         />
                     </div>
                     <button
                         type="submit"
-                        className="btn btn-warning"
+                        className="button"
                         onClick={handleSubmit}
                         disabled={isLoadingSignup}
                     >
@@ -150,21 +150,21 @@ const Signup = () => {
                     </button>
                 </form>
             ) : !checkOtpSent ? (
-                <div>
+                <div className="otp-email-section">
                     <div className='form-group'>
                         <label htmlFor="email">Email</label>
                         <input
                             name="email"
                             type="email"
-                            className="form-control"
                             id="email"
+                            className="input"
                             value={email}
                             onChange={handleChangeEmail}
                             required
                         />
                     </div>
                     <button
-                        className="btn btn-warning"
+                        className="button"
                         onClick={handleOtp}
                         disabled={isLoadingOtp}
                     >
@@ -172,21 +172,21 @@ const Signup = () => {
                     </button>
                 </div>
             ) : (
-                <div>
+                <div className="otp-verification-section">
                     <div className='form-group'>
                         <label htmlFor="otp">Enter verification code</label>
                         <input
                             name="otp"
                             type="text"
-                            className="form-control"
                             id="otp"
+                            className="input"
                             value={otp}
                             required
                             onChange={handleChangeOtp}
                         />
                     </div>
                     <button
-                        className="btn btn-warning"
+                        className="button"
                         onClick={verifyOtp}
                         disabled={isLoadingVerify}
                     >
@@ -194,6 +194,9 @@ const Signup = () => {
                     </button>
                 </div>
             )}
+             <p className="register-text">
+                   Already have an account? <Link to="/login">Login</Link>
+                  </p>
         </div>
     );
 };

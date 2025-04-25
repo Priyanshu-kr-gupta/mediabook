@@ -5,22 +5,13 @@ import { FiHome, FiUser, FiPlusCircle } from "react-icons/fi";
 
 function Navbar() {
   const location = useLocation();
-  const [scrolled, setScrolled] = useState(false);
   
-  // Handle scrolling effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+
 
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
+      <nav className='navbar'>
         <div className="navbar-container">
           <Link to="/" className="logo">
             <span className="logo-text">MediaBook</span>
@@ -38,14 +29,7 @@ function Navbar() {
             </Link>
           </div>
           
-          <div className="auth-buttons">
-            {!localStorage.getItem("auth-token") && (
-              <>
-                <Link className="btn btn-login" to="/login">Login</Link>
-                <Link className="btn btn-signup" to="/signup">Sign Up</Link>
-              </>
-            )}
-          </div>
+        
         </div>
       </nav>
 
