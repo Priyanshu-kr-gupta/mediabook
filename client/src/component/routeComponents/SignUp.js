@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import "../routeComponents/css/signup.css";
+import imageCompression from 'browser-image-compression';
 
 
 const Signup = () => {
@@ -63,8 +64,27 @@ const Signup = () => {
             formData.append("email", email);
             formData.append("name", name);
             formData.append("password", password);
-            if (profileImg) formData.append("profileImg", profileImg);
-            if (bgImg) formData.append("bgImg", bgImg);
+            // if (profileImg) formData.append("profileImg", profileImg);
+            // if (bgImg) formData.append("bgImg", bgImg);
+
+            // Compress the profile image if it exists
+            if (profileImg) {
+                const compressedProfileImg = await imageCompression(profileImg, {
+                    maxSizeMB: 4,
+                    maxWidthOrHeight: 1024,
+                    useWebWorker: true,
+                });
+                formData.append("profileImg", compressedProfileImg);
+            }
+            // Compress the background image if it exists
+            if (bgImg) {
+                const compressedBgImg = await imageCompression(bgImg, {
+                    maxSizeMB: 4,
+                    maxWidthOrHeight: 1024,
+                    useWebWorker: true,
+                });
+                formData.append("bgImg", compressedBgImg);
+            }
 
             const response = await fetch(`${host}/api/auth/createUser`, {
                 method: "POST",
@@ -123,21 +143,23 @@ const Signup = () => {
                         />
                     </div>
                     <div className='form-group'>
-                        <label htmlFor="profilePhoto">Profile photo (optional)</label>
+                        <label htmlFor="profilePhoto">Profile photo</label>
                         <input
                             type="file"
                             id="profilePhoto"
                             className="input"
                             onChange={handleImage}
+                            required
                         />
                     </div>
                     <div className='form-group'>
-                        <label htmlFor="bgPhoto">Background photo (optional)</label>
+                        <label htmlFor="bgPhoto">Background photo</label>
                         <input
                             type="file"
                             id="bgPhoto"
                             className="input"
                             onChange={handleBgImage}
+                            required
                         />
                     </div>
                     <button
