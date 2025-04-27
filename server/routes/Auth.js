@@ -27,13 +27,13 @@ let otp = Math.floor(1000 + Math.random() * 9000);
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'dlnpriyanshu@gmail.com',
-      pass: 'tohz shpi cnpu prtl'
+      user: 'princegupta92349@gmail.com',
+      pass: 'xqyy elef namz ghpg'
     }
   });
   
   var mailOptions = {
-    from: 'princegupta92349@gmail.com',
+    from: 'dlnpriyanshu@gmail.com',
     to: `${email}`,
     subject: 'Welcome to MediaBook',
     html: `
